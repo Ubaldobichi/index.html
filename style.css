@@ -417,3 +417,28 @@ footer { padding: 40px 0; color: var(--text-light); background-color: #1AA9B8; }
         padding: 30px 20px;
     }
 }
+/* Estilos para cards da seção "O que fazemos" (glass-card) */
+.glass-card {
+    /* Garante que qualquer alteração de propriedade seja suave */
+    transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+    /* Contorno neon (ciano) */
+    box-shadow: 0 0 15px 5px rgba(0, 255, 255, 0.7); /* Ajustei os valores para um brilho mais evidente */
+
+    /* Efeito de elevação sutil ao passar o mouse */
+    transform: translateY(-5px);
+}
+
+/* Verifique se você já tem algo similar para .white-card na seção "Por que a Way?" */
+/* Se sim, adapte a cor da sombra para o mesmo ciano neon. */
+/* Se não tiver, adicione este bloco para ter o efeito nos white-cards também: */
+.white-card {
+    transition: all 0.3s ease;
+}
+
+.white-card:hover {
+    box-shadow: 0 0 15px 5px rgba(0, 255, 255, 0.7); /* Mesmo ciano neon */
+    transform: translateY(-5px);
+}

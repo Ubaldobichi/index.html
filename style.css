@@ -358,6 +358,7 @@ footer { padding: 40px 0; color: var(--text-light); background-color: #1AA9B8; }
     display: flex;
     align-items: center;
     gap: 15px;
+    text-decoration: none; /* LINHA ADICIONADA: Remove o sublinhado */
 }
 .footer-logo img {
     width: 120px;

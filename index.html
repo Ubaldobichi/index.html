@@ -5,16 +5,469 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Way Soluções Tecnológicas</title>
 
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17425082247"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'AW-17425082247');
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
     <link rel="stylesheet" href="style.css">
+    
+    <style>
+        /* --- 1. CONFIGURAÇÕES GERAIS E VARIÁVEIS --- */
+        :root {
+            --color-page-azul: #74E0F4;
+            --color-page-clara: #F8F9FA;
+            --primary-cyan-solid: #22D0E6;
+            --primary-cyan-glow: rgba(34, 208, 230, 0.7); /* Cor do brilho neon */
+            --text-dark: #000000; /* Alterado para preto */
+            --text-light: #000000; /* Alterado para preto */
+            --card-glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            overflow-x: hidden;
+            background-color: var(--color-page-azul);
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section {
+            padding: 100px 0;
+            position: relative;
+            z-index: 2;
+        }
+
+        section::before {
+            content: '';
+            position: absolute;
+            top: -150px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to bottom, transparent, var(--bg-color));
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        #inicio { --bg-color: var(--color-page-azul); background-color: var(--bg-color); color: var(--text-light); }
+        #servicos { --bg-color: var(--color-page-clara); background-color: var(--bg-color); color: var(--text-dark); }
+        #sobre { --bg-color: var(--color-page-azul); background-color: var(--bg-color); color: var(--text-light); }
+        #diferenciais { --bg-color: var(--color-page-clara); background-color: var(--bg-color); color: var(--text-dark); }
+        #onde-atuamos { --bg-color: var(--color-page-azul); background-color: var(--bg-color); color: var(--text-light); }
+        #contato { --bg-color: var(--color-page-clara); background-color: var(--bg-color); color: var(--text-dark); }
+
+        #inicio::before {
+            display: none;
+        }
+
+        #servicos .glass-card {
+            background: #FFFFFF;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            border: 1px solid #E9ECEF;
+        }
+        #servicos .glass-card h3, #servicos .glass-card p {
+            color: var(--text-dark);
+        }
+
+        /* --- 2. HEADER E NAVEGAÇÃO --- */
+        .header {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-glass-border);
+            transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .header-scrolled {
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .nav {
+            height: 80px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            transition: color 0.4s ease;
+        }
+        .nav-logo img {
+            width: 120px;
+            height: auto;
+        }
+        .nav-logo-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .nav-logo-text strong {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+        .nav-logo-text span {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            white-space: nowrap;
+        }
+        .header.on-light-section .nav-logo-text strong,
+        .header.on-light-section .nav-logo-text span {
+            color: var(--text-dark);
+        }
+
+        .header .nav-link, .header .nav-toggle {
+            color: var(--text-light);
+        }
+        .header.on-light-section .nav-link, .header.on-light-section .nav-toggle {
+            color: var(--text-dark);
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .nav-link {
+            display: block;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 20px;
+            border-radius: 10px;
+            background-color: transparent;
+            border: 1px solid transparent;
+            box-shadow: 0 0 0 1px rgba(34, 208, 230, 0.3); /* Contorno sutil com box-shadow */
+            transition: background-color 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
+        }
+
+        .nav-link:hover {
+            background-color: var(--primary-cyan-solid);
+            color: #FFFFFF !important; /* Mantido branco para contraste no hover */
+            border-color: transparent;
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px 0 var(--primary-cyan-glow); /* Brilho mais intenso no hover */
+        }
+
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 40px;
+        }
+        .hero-text { flex-basis: 55%; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .hero-text .subtitle { font-weight: 500; margin-bottom: 10px; }
+        .hero-text h1 { font-size: 4rem; line-height: 1.2; margin-bottom: 20px; color: var(--text-light); }
+        .hero-text .description { font-size: 1.1rem; max-width: 500px; }
+        .hero-image { flex-basis: 35%; display: flex; justify-content: center; align-items: center; }
+        .hero-image img {
+            width: 100%;
+            max-width: 900px; /* Logo 3x maior */
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0px); } }
+
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 20px; }
+        .section-subtitle { text-align: center; font-weight: 400; margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto; }
+
+        .glass-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .glass-card {
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        /* Efeito de brilho neon para os cards de Serviço */
+        .glass-card:hover {
+            transform: translateY(-12px) scale(1.03);
+            box-shadow: 0 12px 35px rgba(34, 208, 230, 0.3), 0 0 20px 5px var(--primary-cyan-glow);
+        }
+        .glass-card .icon {
+            width: 60px;
+            height: 60px;
+            background-color: var(--primary-cyan-solid);
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        /* Ajuste para a imagem dentro do ícone */
+        .glass-card .icon img {
+            width: 70%; /* Ajuste o tamanho da imagem para caber no quadrado */
+            height: 70%; /* Ajuste o tamanho da imagem para caber no quadrado */
+            object-fit: contain; /* Garante que a imagem se ajuste sem cortar */
+        }
+        .glass-card .icon i { font-size: 2rem; color: #FFFFFF; } /* Mantido para outros ícones do Boxicons */
+        .glass-card h3 { font-size: 1.3rem; margin-bottom: 15px; }
+
+        #sobre .about-content, #contato .contact-content, #diferenciais .container { max-width: 1000px; margin: 0 auto; }
+        #sobre .about-main { display: flex; align-items: flex-start; gap: 60px; }
+        #sobre .text-column { flex-basis: 50%; }
+        #sobre .text-block { margin-bottom: 40px; }
+        #sobre .stats-grid { display: flex; gap: 40px; margin-top: 30px; }
+        #sobre .stat h4 { font-size: 2.5rem; color: #000000; } /* Alterado para preto */
+        #sobre .cards-column { flex-basis: 50%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+        .white-card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .white-card {
+            background-image: linear-gradient(145deg, #FFFFFF 0%, #F8F9FA 100%);
+            padding: 30px 20px; border-radius: 16px; box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            text-align: center; transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+            height: 100%; border: 1px solid #fff;
+        }
+        /* Efeito de brilho neon para os cards brancos gerais (Sobre, Diferenciais) */
+        .white-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12), 0 0 20px 5px var(--primary-cyan-glow); /* Adicionado o brilho neon */
+        }
+        .white-card .icon { font-size: 2.5rem; color: var(--primary-cyan-solid); margin-bottom: 15px; }
+        .white-card h4 { font-size: 1.1rem; color: var(--text-dark); margin-bottom: 10px; }
+        .white-card p { font-size: 0.9rem; color: #000000; line-height: 1.6; } /* Alterado para preto */
+
+        #onde-atuamos .container { text-align: center; }
+
+        .contact-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        .contact-grid a { text-decoration: none; }
+        /* Efeito de brilho neon para os cards de contato */
+        .contact-grid .white-card:hover {
+            transform: translateY(-10px); /* Adicionado o efeito de levantar */
+            box-shadow: 0 0 20px 5px var(--primary-cyan-glow);
+        }
+
+        /* ESTILOS PARA O FORMULÁRIO DE CONTATO */
+        .contact-form-section {
+            background-color: #FFFFFF; /* Fundo branco para o formulário */
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            margin-top: 40px; /* Espaço entre o subtítulo e o formulário */
+            margin-bottom: 60px; /* Espaço entre o formulário e os cards de contato */
+            max-width: 700px; /* Largura máxima para o formulário */
+            margin-left: auto;
+            margin-right: auto;
+            border: 1px solid #e0e0e0;
+        }
+
+        .contact-form-section h3 {
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-dark);
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="email"],
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ced4da;
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            color: var(--text-dark);
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group input[type="email"]:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary-cyan-solid);
+            box-shadow: 0 0 0 3px rgba(34, 208, 230, 0.2);
+            outline: none;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-button {
+            display: block;
+            width: 100%;
+            padding: 15px 25px;
+            background-color: var(--primary-cyan-solid);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 5px 15px rgba(34, 208, 230, 0.4);
+        }
+
+        .form-button:hover {
+            background-color: #1AA9B8; /* Um tom ligeiramente mais escuro de cyan */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(34, 208, 230, 0.6);
+        }
+
+        /* ESTILOS PARA A MENSAGEM DE SUCESSO */
+        #success-message {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50; /* Verde de sucesso */
+            color: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        #success-message.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        footer { padding: 40px 0; color: var(--text-light); background-color: #1AA9B8; }
+        .footer-content { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none; /* LINHA ADICIONADA: Remove o sublinhado */
+        }
+        .footer-logo img {
+            width: 120px;
+            height: auto;
+        }
+        .footer-logo .text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Estilo para o texto do logo no rodapé (Way Soluções Tecnológicas) */
+            color: #000000; /* Preto */
+            font-weight: bold; /* Negrito */
+        }
+        /* Garante que o texto forte e o span dentro do logo do rodapé sejam pretos e negrito */
+        .footer-logo .text strong,
+        .footer-logo .text span { /* O span é a tag que envolve "Soluções Tecnológicas" */
+            color: #000000; /* Força o texto dentro do strong/span a ser preto */
+            font-weight: 700; /* Negrito */
+        }
+
+        /* Ajuste para o texto de CNPJ e Direitos Autorais */
+        .footer-credits {
+            text-align: right;
+            font-size: 0.8rem;
+            color: #000000; /* Preto */
+            font-weight: bold; /* Negrito */
+            line-height: 1.5;
+        }
+
+        .fade-in-element { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease-out, transform 0.8s ease-out; }
+        .fade-in-element.is-visible { opacity: 1; transform: translateY(0); }
+
+        .nav-toggle { font-size: 1.5rem; cursor: pointer; display: none; transition: color 0.4s ease; z-index: 1100; }
+
+        @media (max-width: 1024px) {
+            .nav-toggle { display: block; }
+            .nav-list {
+                position: fixed; top: 0; left: -100%;
+                width: 100%; height: 100vh;
+                display: flex; flex-direction: column; justify-content: center; align-items: center;
+                gap: 40px; background-color: #00c2cb; transition: left 0.4s ease-in-out; z-index: 1050;
+            }
+            .nav-list.show-menu { left: 0; }
+            .nav-link { color: #FFFFFF !important; font-size: 1.2rem; background: transparent; border: none; } /* Links do menu mobile mantidos em branco para contraste */
+        }
+
+        @media (max-width: 768px) {
+            .hero-content { flex-direction: column; text-align: center; }
+            .hero-text .description { margin: 0 auto 20px auto; }
+            .hero-text h1 { font-size: 2.8rem; }
+            .hero-image { margin-top: 40px; }
+            .glass-grid, #sobre .cards-column, .white-card-grid, .contact-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; text-align: center; }
+            .footer-credits { text-align: center; margin-top: 20px;}
+
+            .contact-form-section {
+                padding: 30px 20px;
+            }
+        }
+        /* Estilos para cards da seção "O que fazemos" (glass-card) */
+        .glass-card {
+            /* Garante que qualquer alteração de propriedade seja suave */
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            /* Contorno neon (ciano) */
+            box-shadow: 0 0 15px 5px rgba(0, 255, 255, 0.7); /* Ajustei os valores para um brilho mais evidente */
+
+            /* Efeito de elevação sutil ao passar o mouse */
+            transform: translateY(-5px);
+        }
+
+        /* Verifique se você já tem algo similar para .white-card na seção "Por que a Way?" */
+        /* Se sim, adapte a cor da sombra para o mesmo ciano neon. */
+        /* Se não tiver, adicione este bloco para ter o efeito nos white-cards também: */
+        .white-card {
+            transition: all 0.3s ease;
+        }
+
+        .white-card:hover {
+            box-shadow: 0 0 15px 5px rgba(0, 255, 255, 0.7); /* Mesmo ciano neon */
+            transform: translateY(-5px);
+        }
+    </style>
+
 </head>
 <body>
-
     <header class="header" id="header">
         <nav class="nav container">
             <a href="#inicio" class="nav-logo">
@@ -24,11 +477,9 @@
                     <span>Soluções Tecnológicas</span>
                 </div>
             </a>
-
             <div class="nav-toggle" id="nav-toggle">
                 <i class='bx bx-menu'></i>
             </div>
-
             <ul class="nav-list" id="nav-list">
                 <li><a href="#sobre" class="nav-link">Sobre</a></li>
                 <li><a href="#servicos" class="nav-link">Serviços</a></li>
@@ -37,7 +488,6 @@
             </ul>
         </nav>
     </header>
-
     <main>
         <section id="inicio">
             <div class="hero-content container">
@@ -63,55 +513,46 @@
                         <h3>Atendimento Especializado</h3>
                         <p>Atendimento com contrato ou sob demanda, sempre com padrão corporativo.</p>
                     </div>
-
                     <div class="glass-card fade-in-element">
                         <div class="icon"><i class='bx bx-wrench'></i></div>
                         <h3>Suporte Técnico e Manutenção</h3>
                         <p>Preventiva e corretiva, presencial ou remota, com máquina reserva disponível.</p>
                     </div>
-                    
                     <div class="glass-card fade-in-element">
                         <div class="icon"><i class='bx bx-cog'></i></div>
                         <h3>Consultoria e Projetos de TI</h3>
                         <p>Diagnóstico estratégico, documentação técnica, implantação e melhoria contínua.</p>
                     </div>
-                    
                     <div class="glass-card fade-in-element">
                         <div class="icon"><i class='bx bx-building-house'></i></div>
                         <h3>Segurança e Controle de Acesso Integrado</h3>
                         <p>Portaria, CFTV, rede local, controle de acesso, reconhecimento facial, dentre outras soluções.</p>
                     </div>
-
                     <div class="glass-card fade-in-element">
                         <div class="icon"><img src="automacao.png" alt="Ícone Automação"></div>
                         <h3>Automação Residencial e Empresarial</h3>
                         <p>Residencial: casa inteligente com iluminação, som, sensores e comandos por app ou voz.<br>Comercial: automação de PDVs com sistemas de gestão, emissão de NFe, controle de estoque, vendas e caixa.</p>
                     </div>
-
                     <div class="glass-card fade-in-element">
                         <div class="icon"><i class='bx bx-sitemap'></i></div>
                         <h3>Infraestrutura de Rede</h3>
                         <p>Cabeamento, switches, roteadores, modens, Mikrotik, Wi-Fi, montagem e estruturação de racks para CPD.</p>
                     </div>
-                    
                     <div class="glass-card fade-in-element">
                         <div class="icon"><i class='bx bx-network-chart'></i></div>
                         <h3>Projeto e Otimização de Redes e Topologias</h3>
                         <p>Design, planejamento e melhoria de arquiteturas de rede para performance e segurança.</p>
                     </div>
-
                     <div class="glass-card fade-in-element">
                         <div class="icon"><i class='bx bx-code-alt'></i></div>
                         <h3>Desenvolvimento Frontend</h3>
                         <p>Criação de interfaces web responsivas para sites, landing pages e apps, otimizadas para performance e acessibilidade, visando a melhor experiência do usuário.</p>
                     </div>
-
                     <div class="glass-card fade-in-element">
                         <div class="icon"><i class='bx bx-bot'></i></div>
                         <h3>Desenvolvimento de Chatbots</h3>
                         <p>Implementação de chatbots inteligentes para automação de atendimento e processos.</p>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -211,4 +652,60 @@
                 </div>
                 <p class="section-subtitle fade-in-element">Quer parar de ter dor de cabeça com TI? Entre em contato e transforme sua estrutura com quem entende do assunto e entrega o que promete.</p>
                 <div class="contact-grid">
-                    <a href="https://wa.me/5527995905093" target="_blank" class="fade-in-element
+                    <a href="https://wa.me/5527995905093" target="_blank" class="fade-in-element">
+                        <div class="white-card">
+                            <div class="icon"><i class='bx bxs-phone-call'></i></div>
+                            <h4>Suporte</h4>
+                            <p>(27) 99590-5093</p>
+                        </div>
+                    </a>
+                    <a href="https://wa.me/5527997517788" target="_blank" class="fade-in-element">
+                        <div class="white-card">
+                            <div class="icon"><i class='bx bxs-phone-call'></i></div>
+                            <h4>Comercial</h4>
+                            <p>(27) 99751-7788</p>
+                        </div>
+                    </a>
+                    <a href="mailto:contato@waysolucoes.com" target="_blank" class="fade-in-element">
+                        <div class="white-card">
+                            <div class="icon"><i class='bx bxs-envelope'></i></div>
+                            <h4>E-mail</h4>
+                            <p>contato@waysolucoes.com</p>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/way.solucoes" target="_blank" class="fade-in-element">
+                        <div class="white-card">
+                            <div class="icon"><i class='bx bxl-instagram-alt'></i></div>
+                            <h4>Instagram</h4>
+                            <p>@way.solucoes</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content container">
+            <a href="#inicio" class="footer-logo">
+                <img src="Modern_Creative_Business_Card__2_-removebg-preview.png" alt="Way Soluções Logo">
+                <div class="text">
+                    <strong>Way</strong>
+                    <span>Soluções Tecnológicas</span>
+                </div>
+            </a>
+            <div class="footer-credits">
+                © 2025 Way Soluções. Todos os direitos reservados.<br>
+                CNPJ: 58.460.568/0001-75
+            </div>
+        </div>
+    </footer>
+
+    <div id="success-message">
+        Entraremos em contato em breve!
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
